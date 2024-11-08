@@ -1,15 +1,17 @@
 //Constants
 const USERS_LOCAL_STORAGE_KEY = "users";
-const TASKS_LOCAL_STORAGE_KEY = "tasks"
-const DATE_FORMAT = "Y-m-d"
-const SAME_USERNAME_ERROR = "Van már ilyen nevű felhasználó! Kérlek, válassz másik nevet."
-const EMPTY_USERNAME_ERROR = "Kérlek, adj meg egy nevet!"
-const USER_SAVED_SUCCESSFULLY = "Felhasználó sikeresen létrehozva!"
-const TASK_SAVED_SUCCESSULLY = "Feladat sikeresen létrehozva!"
-const TASK_UPDATED_SUCCESSULLY = "Feladat sikeresen módosítva!"
-const DELETE_CONFIRMATION = "Biztosan törölni akarja?"
-const NO_TASK = "Nincs feladat"
-const REQUIRED_FIELD = "Ez a mező kötelező"
+const TASKS_LOCAL_STORAGE_KEY = "tasks";
+const DATE_FORMAT = "Y-m-d";
+const SAME_USERNAME_ERROR =
+  "Van már ilyen nevű felhasználó! Kérlek, válassz másik nevet.";
+const EMPTY_USERNAME_ERROR = "Kérlek, adj meg egy nevet!";
+const USER_SAVED_SUCCESSFULLY = "Felhasználó sikeresen létrehozva!";
+const TASK_SAVED_SUCCESSULLY = "Feladat sikeresen létrehozva!";
+const TASK_UPDATED_SUCCESSULLY = "Feladat sikeresen módosítva!";
+const DELETE_CONFIRMATION = "Biztosan törölni akarja?";
+const NO_TASK = "Nincs feladat";
+const REQUIRED_FIELD = "Ez a mező kötelező";
+
 // Components
 const skeleton = () =>
   `<nav class="navbar navbar-expand-lg bg-body-tertiary" id="nav-bar">
@@ -113,12 +115,18 @@ const singleTask = (task) => `
           <td>${task.day}</td>
           <td>${task.start}</td>
           <td>${task.end}</td>
-          <td>${task.tags.map(tag => `<span class="task-tag">${tag}</span>`).join(",")}</td>
-          <td style="text-align:center"><span><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-trash delete-task" data-id="${task.id}" viewBox="0 0 16 16">
+          <td>${task.tags
+            .map((tag) => `<span class="task-tag">${tag}</span>`)
+            .join(",")}</td>
+          <td style="text-align:center"><span><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-trash delete-task" data-id="${
+            task.id
+          }" viewBox="0 0 16 16">
   <path d="M5.5 5.5A.5.5 0 0 1 6 6v6a.5.5 0 0 1-1 0V6a.5.5 0 0 1 .5-.5m2.5 0a.5.5 0 0 1 .5.5v6a.5.5 0 0 1-1 0V6a.5.5 0 0 1 .5-.5m3 .5a.5.5 0 0 0-1 0v6a.5.5 0 0 0 1 0z"/>
   <path d="M14.5 3a1 1 0 0 1-1 1H13v9a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V4h-.5a1 1 0 0 1-1-1V2a1 1 0 0 1 1-1H6a1 1 0 0 1 1-1h2a1 1 0 0 1 1 1h3.5a1 1 0 0 1 1 1zM4.118 4 4 4.059V13a1 1 0 0 0 1 1h6a1 1 0 0 0 1-1V4.059L11.882 4zM2.5 3h11V2h-11z"/>
 </svg></span>
-          <span> <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-pencil edit-task" data-id="${task.id}"  viewBox="0 0 16 16">
+          <span> <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-pencil edit-task" data-id="${
+            task.id
+          }"  viewBox="0 0 16 16">
   <path d="M12.146.146a.5.5 0 0 1 .708 0l3 3a.5.5 0 0 1 0 .708l-10 10a.5.5 0 0 1-.168.11l-5 2a.5.5 0 0 1-.65-.65l2-5a.5.5 0 0 1 .11-.168zM11.207 2.5 13.5 4.793 14.793 3.5 12.5 1.207zm1.586 3L10.5 3.207 4 9.707V10h.5a.5.5 0 0 1 .5.5v.5h.5a.5.5 0 0 1 .5.5v.5h.293zm-9.761 5.175-.106.106-1.528 3.821 3.821-1.528.106-.106A.5.5 0 0 1 5 12.5V12h-.5a.5.5 0 0 1-.5-.5V11h-.5a.5.5 0 0 1-.468-.325"/>
 </svg></span>
         </tr>`;
@@ -173,9 +181,17 @@ const canvasComponent = () => `
 }</button>
 </div>`;
 
-function updateTask(editedTaskId, taskName, startDate, endDate, day, tagsArray) {
+function updateTask(
+  editedTaskId,
+  taskName,
+  startDate,
+  endDate,
+  day,
+  tagsArray
+) {
   let tasks = JSON.parse(localStorage.getItem(TASKS_LOCAL_STORAGE_KEY)) || [];
-  const newTasks = tasks.map((task) => {if(task.id == editedTaskId) {
+  const newTasks = tasks.map((task) => {
+    if (task.id == editedTaskId) {
       return {
         id: editedTaskId,
         uid: task.uid,
@@ -184,11 +200,11 @@ function updateTask(editedTaskId, taskName, startDate, endDate, day, tagsArray) 
         end: endDate,
         day: day,
         tags: tagsArray,
-      }
+      };
     } else {
-      return task
-    }}
-)
+      return task;
+    }
+  });
   localStorage.setItem(TASKS_LOCAL_STORAGE_KEY, JSON.stringify(newTasks));
 }
 
@@ -305,7 +321,7 @@ function makeDiagram(diagramData) {
 function countDiagramData(usersTasks) {
   const today = flatpickr.formatDate(new Date(), DATE_FORMAT);
   const todayTasks = usersTasks.filter((task) => task.day === today);
-  
+
   const thisMonth = today.split("-")[1];
   const monthlyTasks = usersTasks.filter(
     (task) => String(thisMonth) === String(task.day.split("-")[1])
@@ -320,16 +336,16 @@ function countDiagramData(usersTasks) {
 
 let diagramType = 0;
 const changeDiagramDisplay = (e, mainElement, selectUserEl) => {
-    diagramType = diagramType === 0 ? 1 : 0;
-    makeHomePageContent(mainElement, selectUserEl);
+  diagramType = diagramType === 0 ? 1 : 0;
+  makeHomePageContent(mainElement, selectUserEl);
 };
 
 //Functions for user handling
 
 const openNewUserForm = (mainElement) => {
-    mainElement.innerHTML = "";
-    mainElement.insertAdjacentHTML("beforeend", welcomeScreenComponent());
-    addUser(mainElement);
+  mainElement.innerHTML = "";
+  mainElement.insertAdjacentHTML("beforeend", welcomeScreenComponent());
+  addUser(mainElement);
 };
 
 function addUser(element) {
@@ -348,9 +364,8 @@ function addUser(element) {
       (user) => user.username.toLowerCase() === userElement.value.toLowerCase()
     );
     if (isItExists) {
-      userNameError.innerHTML =
-        SAME_USERNAME_ERROR;
-        return
+      userNameError.innerHTML = SAME_USERNAME_ERROR;
+      return;
     } else if (userElement.value === "") {
       userNameError.innerHTML = EMPTY_USERNAME_ERROR;
       return;
@@ -402,123 +417,113 @@ const showEditTaskPage = (mainElement, selectUserEl, editedTaskId) => {
   mainElement.innerHTML = "";
   mainElement.insertAdjacentHTML("beforeend", addNewTaskComponent());
 
-  if(editedTaskId) {
-      prefillTaskForm(editedTaskId)
+  if (editedTaskId) {
+    prefillTaskForm(editedTaskId);
   }
 
   configTime();
   const submitTaskButton = document.getElementById("submit-task");
-  setUpCancelTaskButton(mainElement,selectUserEl)
+  setUpCancelTaskButton(mainElement, selectUserEl);
 
-  let addingNewTask = !editedTaskId
+  let addingNewTask = !editedTaskId;
 
-  
-    submitTaskButton.addEventListener("click", (e) => {
-      e.preventDefault();
-      const taskName = document.getElementById("task-description").value;
-      const taskNameError = document.getElementById("taskname-error")
-      taskNameError.innerHTML = ""
-      const startDate = document.getElementById("start").value;
-      const startDateError = document.getElementById("taskstart-error")
-      startDateError.innerHTML = ""
-      const endDate = document.getElementById("end").value;
-      const endDateError = document.getElementById("taskend-error")
-      endDateError.innerHTML = ""
-      const day = document.getElementById("day").value;
-      const dayError = document.getElementById("taskdate-error")
-      dayError.innerHTML = ""
-      const tags = document.getElementById("tag").value;
-      const tagsArray =[...new Set(tags.split(","))];
-      switch (true) {
-        case !taskName:
-          taskNameError.innerHTML = REQUIRED_FIELD
-          return;
-        case !day:
-            dayError.innerHTML = REQUIRED_FIELD
-            return;
-        case !startDate:
-          startDateError.innerHTML = REQUIRED_FIELD
-          return;
-        case !endDate:
-            endDateError.innerHTML = REQUIRED_FIELD
-          return
-       
-      }
-      if(addingNewTask) {
-        const user = document.getElementById("select-user").value;
-        saveTask(taskName, startDate, endDate, day, tagsArray, user)
-        let text = TASK_SAVED_SUCCESSULLY;
-        mainElement.insertAdjacentHTML("beforeend", confirmSuccess(text));
-      }else{
-        editedTaskId = parseInt(editedTaskId)
-        updateTask(editedTaskId, taskName, startDate, endDate, day, tagsArray)
-        let text = TASK_UPDATED_SUCCESSULLY;
-        mainElement.insertAdjacentHTML("beforeend", confirmSuccess(text));
-      }
-      submitTaskButton.disabled = true;
-      setTimeout(() => {
-        makeHomePageContent(mainElement, selectUserEl);
-      }, 800);
-    }); 
-
+  submitTaskButton.addEventListener("click", (e) => {
+    e.preventDefault();
+    const taskName = document.getElementById("task-description").value;
+    const taskNameError = document.getElementById("taskname-error");
+    taskNameError.innerHTML = "";
+    const startDate = document.getElementById("start").value;
+    const startDateError = document.getElementById("taskstart-error");
+    startDateError.innerHTML = "";
+    const endDate = document.getElementById("end").value;
+    const endDateError = document.getElementById("taskend-error");
+    endDateError.innerHTML = "";
+    const day = document.getElementById("day").value;
+    const dayError = document.getElementById("taskdate-error");
+    dayError.innerHTML = "";
+    const tags = document.getElementById("tag").value;
+    const tagsArray = [...new Set(tags.split(","))];
+    switch (true) {
+      case !taskName:
+        taskNameError.innerHTML = REQUIRED_FIELD;
+        return;
+      case !day:
+        dayError.innerHTML = REQUIRED_FIELD;
+        return;
+      case !startDate:
+        startDateError.innerHTML = REQUIRED_FIELD;
+        return;
+      case !endDate:
+        endDateError.innerHTML = REQUIRED_FIELD;
+        return;
+    }
+    if (addingNewTask) {
+      const user = document.getElementById("select-user").value;
+      saveTask(taskName, startDate, endDate, day, tagsArray, user);
+      let text = TASK_SAVED_SUCCESSULLY;
+      mainElement.insertAdjacentHTML("beforeend", confirmSuccess(text));
+    } else {
+      editedTaskId = parseInt(editedTaskId);
+      updateTask(editedTaskId, taskName, startDate, endDate, day, tagsArray);
+      let text = TASK_UPDATED_SUCCESSULLY;
+      mainElement.insertAdjacentHTML("beforeend", confirmSuccess(text));
+    }
+    submitTaskButton.disabled = true;
+    setTimeout(() => {
+      makeHomePageContent(mainElement, selectUserEl);
+    }, 800);
+  });
 };
 
 function prefillTaskForm(taskId) {
-    const taskDescription = document.getElementById("task-description");
-    const day = document.getElementById("day");
-    const start = document.getElementById("start");
-    const end = document.getElementById("end");
-    const tags = document.getElementById("tag");
-    const tasks = JSON.parse(localStorage.getItem(TASKS_LOCAL_STORAGE_KEY));
-    const selectedTask = tasks.find(
-      (task) => String(task.id) === String(taskId)
-    );
-    taskDescription.value = selectedTask.task;
-    day.value = selectedTask.day;
-    start.value = selectedTask.start;
-    end.value = selectedTask.end;
-    tags.value =
-      selectedTask.tags.length > 0 ? selectedTask.tags.join(",") : "";
+  const taskDescription = document.getElementById("task-description");
+  const day = document.getElementById("day");
+  const start = document.getElementById("start");
+  const end = document.getElementById("end");
+  const tags = document.getElementById("tag");
+  const tasks = JSON.parse(localStorage.getItem(TASKS_LOCAL_STORAGE_KEY));
+  const selectedTask = tasks.find((task) => String(task.id) === String(taskId));
+  taskDescription.value = selectedTask.task;
+  day.value = selectedTask.day;
+  start.value = selectedTask.start;
+  end.value = selectedTask.end;
+  tags.value = selectedTask.tags.length > 0 ? selectedTask.tags.join(",") : "";
 }
 
-const deleteTask = (e,mainElement, selectUserEl) => {
-    let text = DELETE_CONFIRMATION;
-    mainElement.insertAdjacentHTML(
-      "beforeend",
-      confirmDeleteTaskComponent(text)
-    );
-    const taskId = e.target.getAttribute("data-id");
-    const modal = document.getElementById("confirm-modal");
-    const confirmDeleteButton = document.getElementById("confirm");
-    const cancelDeleteButton = document.getElementById("cancel");
-    modal.style.display = "block";
+const deleteTask = (e, mainElement, selectUserEl) => {
+  let text = DELETE_CONFIRMATION;
+  mainElement.insertAdjacentHTML("beforeend", confirmDeleteTaskComponent(text));
+  const taskId = e.target.getAttribute("data-id");
+  const modal = document.getElementById("confirm-modal");
+  const confirmDeleteButton = document.getElementById("confirm");
+  const cancelDeleteButton = document.getElementById("cancel");
+  modal.style.display = "block";
 
-    confirmDeleteButton.addEventListener("click", () => {
-      const tasks = JSON.parse(localStorage.getItem(TASKS_LOCAL_STORAGE_KEY)) || [];
-      const tasksToKeep = tasks.filter(
-        (el) => String(el.id) !== String(taskId)
-      );
-      localStorage.setItem(TASKS_LOCAL_STORAGE_KEY, JSON.stringify(tasksToKeep));
-      modal.style.display = "none";
+  confirmDeleteButton.addEventListener("click", () => {
+    const tasks =
+      JSON.parse(localStorage.getItem(TASKS_LOCAL_STORAGE_KEY)) || [];
+    const tasksToKeep = tasks.filter((el) => String(el.id) !== String(taskId));
+    localStorage.setItem(TASKS_LOCAL_STORAGE_KEY, JSON.stringify(tasksToKeep));
+    modal.style.display = "none";
 
-      makeHomePageContent(mainElement, selectUserEl);
-    });
+    makeHomePageContent(mainElement, selectUserEl);
+  });
 
-    cancelDeleteButton.addEventListener("click", () => {
-      modal.style.display = "none";
-    });
+  cancelDeleteButton.addEventListener("click", () => {
+    modal.style.display = "none";
+  });
 };
 
-const setUpCancelTaskButton = (mainElement,selectUserEl) => {
-  const cancelTaskBtn = document.getElementById("cancel-task")
-  cancelTaskBtn.addEventListener("click",(e) => {
-    e.preventDefault()
-    makeHomePageContent(mainElement,selectUserEl)
-  })
-}
+const setUpCancelTaskButton = (mainElement, selectUserEl) => {
+  const cancelTaskBtn = document.getElementById("cancel-task");
+  cancelTaskBtn.addEventListener("click", (e) => {
+    e.preventDefault();
+    makeHomePageContent(mainElement, selectUserEl);
+  });
+};
 //functions for display content
 const makeHomePageContent = (mainElement, selectUserEl) => {
-   configTime();
+  configTime();
   const today = flatpickr.formatDate(new Date(), DATE_FORMAT);
 
   const userName = selectUserEl.options[selectUserEl.selectedIndex].text;
@@ -616,12 +621,15 @@ function init() {
 
   headerElement.addEventListener("click", (e) => {
     e.preventDefault();
-    switch(e.target.id) {
-      case "newTask": openNewTask(mainElement, selectUserEl)
+    switch (e.target.id) {
+      case "newTask":
+        openNewTask(mainElement, selectUserEl);
         break;
-      case "newUser": openNewUserForm(mainElement)
+      case "newUser":
+        openNewUserForm(mainElement);
         break;
-      case "home": makeHomePageContent(mainElement, selectUserEl)
+      case "home":
+        makeHomePageContent(mainElement, selectUserEl);
         break;
     }
   });
@@ -630,14 +638,17 @@ function init() {
   });
   mainElement.addEventListener("click", (e) => {
     e.preventDefault();
-    if(e.target.classList.contains("delete-task")) {
-      deleteTask(e,mainElement, selectUserEl); 
+    if (e.target.classList.contains("delete-task")) {
+      deleteTask(e, mainElement, selectUserEl);
     } else if (e.target.classList.contains("edit-task")) {
-      showEditTaskPage(mainElement, selectUserEl, e.target.getAttribute("data-id"));
-    }else if(e.target.id === "changeDiagram") {
+      showEditTaskPage(
+        mainElement,
+        selectUserEl,
+        e.target.getAttribute("data-id")
+      );
+    } else if (e.target.id === "changeDiagram") {
       changeDiagramDisplay(e, mainElement, selectUserEl);
     }
-   
   });
 }
 init();

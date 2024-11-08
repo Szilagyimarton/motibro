@@ -1,0 +1,95 @@
+*{
+  padding: 0;
+  margin: 0;
+  box-sizing: border-box;
+
+}
+#root{
+  width: 100%;
+}
+
+.nav-item{
+  padding: 5px;
+}
+#select-user{
+   max-width: 150px;
+}
+.main{
+  display:flex;
+  height: 100vh;
+  flex-direction: column;
+  justify-content: top;
+  align-items: center;
+  width: 100%;
+}
+#add-username{
+  max-width: 500px;
+  margin-top: 20px;
+}
+
+
+#home-page{
+  height: fit-content;
+  width: 100%;
+  padding: 10px;
+  margin-bottom: 40px;
+}
+#home-page > h1 {
+  text-align: center;
+}
+
+#tasks-container{
+  display: flex;
+  justify-content: center;
+  flex-wrap: wrap;
+  gap: 5px;
+}
+#task-form{
+  min-width: 70%;
+}
+#filter-tasks-container{
+  display: flex;
+ flex-direction: row;
+ justify-content: end;
+}
+#filter-tasks{
+  max-width: 200px;
+  margin: 10px;
+}
+#no-task{
+  font-size: large;
+  font-weight: 700;
+}
+
+.edit-task, .delete-task{
+  cursor: pointer;
+ 
+}
+.edit-task{
+  color: grey;
+}
+.delete-task, .required-task-field, #username-error{
+  color: red;
+}
+
+
+#canvas-container{
+  max-width: 90%;
+  max-height: 90%;
+  margin: 10px;
+  border-top: 1px solid black;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+#tasksChart{
+  max-width: 300px;
+  height: 300px;
+  margin: 10px;
+}
+
+#success-alert{
+  position: absolute;
+  top: 0;
+  right: 0;
+}
